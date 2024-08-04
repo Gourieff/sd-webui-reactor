@@ -181,7 +181,7 @@ def get_models():
     model_inswapper = os.path.join(models_path, "insightface/inswapper_128.onnx")
     model_inswapper_lost = [path for path in models if 'inswapper_128.onnx' in path and  os.path.split(path)[0].split('\\')[-1] != "insightface"]
     if model_inswapper_lost and not os.path.exists(model_inswapper):
-        os.rename(model_inswapper_lost, model_inswapper)
+        os.rename(model_inswapper_lost[0], model_inswapper)
     models_names = []
     for model in models:
         model_path = os.path.split(model)
