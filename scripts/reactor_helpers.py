@@ -175,9 +175,13 @@ def save_face_model(face: Face, filename: str) -> None:
 
 def get_models():
     global MODELS_PATH
-    models_path_init = os.path.join(models_path, "insightface/*")
-    models = glob.glob(models_path_init)
+    models_path_init = os.path.join(models_path, "insightface/**/*")
+    models = glob.glob(models_path_init, recursive=True)
     models = [x for x in models if x.endswith(".onnx") or x.endswith(".pth")]
+    model_inswapper = os.path.join(models_path, "insightface/inswapper_128.onnx")
+    model_inswapper_lost = [path for path in models if 'inswapper_128.onnx' in path and  os.path.split(path)[0].split('\\')[-1] != "insightface"]
+    if model_inswapper_lost and not os.path.exists(model_inswapper):
+        os.rename(model_inswapper_lost, model_inswapper)
     models_names = []
     for model in models:
         model_path = os.path.split(model)
