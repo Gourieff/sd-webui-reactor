@@ -206,7 +206,7 @@ def get_model_names(get_models):
     names = ["None"]
     for x in models:
         names.append(os.path.basename(x))
-    return names
+    return sorted(names)
 
 def get_images_from_folder(path: str):
     files_path = os.path.join(path, "*")
